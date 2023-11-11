@@ -1,0 +1,30 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/main
+/edctl
+/edctl-*
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# IDE
+.idea/
+.vscode
+
+# Nix dev shell
+.direnv
+
+# Nix dev shell sets GOPATH to this directory, so it contains go cache and modules
+.go
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+/tmp
