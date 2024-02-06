@@ -5,8 +5,6 @@
 *.so
 *.dylib
 /main
-/edctl
-/edctl-*
 
 # Test binary, built with `go test -c`
 *.test
