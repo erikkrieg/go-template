@@ -39,3 +39,11 @@ fmt *flags=fmt-flags:
 
 # Run all checks. Note, this can modify files.
 check: tidy fmt lint test
+
+# Rename changes the module name and all references to it
+rename user project:
+  @echo "Changing module name to github.com/{{user}}/{{project}}..."
+  @git ls-files | xargs sed -i.bak "s|$(go list -m)|github.com/{{user}}/{{project}}|g"
+  @find . -name "*.bak" -delete
+
+

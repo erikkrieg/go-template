@@ -1,6 +1,8 @@
 # Go Template
 
-Template for Nix-based Go projects
+Template for Basic Go projects.
+
+**After creating a project from this template** you should run `just rename $user $project` to change the Go module name and imports. And be sure to update the readme!
 
 ## Setup
 
@@ -12,7 +14,7 @@ Install Nix:
 
 - [Standard installation](https://nixos.org/download)
 - [A community installer](https://github.com/DeterminateSystems/nix-installer)
-  - Promises more reliable installations for MacOS
+  - Promises more reliable installations for macOS
 
 ### Direnv (recommended)
 
