@@ -7,6 +7,15 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/cache@v4
+      name: Cache nix store
+      with:
+        path: |
+          /nix/store
+          /nix/var/nix/db
+        key: ${{ runner.os }}-nix-${{ hashFiles('flake.lock', 'flake.nix') }}
+        restore-keys: |
+          ${{ runner.os }}-nix-
     - uses: DeterminateSystems/nix-installer-action@v16
       with:
         # Using a token is recommended to avoid rate limiting
