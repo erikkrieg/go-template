@@ -1,0 +1,31 @@
+name: Integration
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+    permissions:
+      id-token: "write"
+      contents: "read"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@30
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          diagnostic-endpoint: ""
+      - uses: DeterminateSystems/magic-nix-cache-action@8
+        with:
+          diagnostic-endpoint: ""
+      - uses: DeterminateSystems/flake-checker-action@9
+        with:
+          send-statistics: false
+          nixpkgs-keys: nixpkgs,unstable-nixpkgs
+      - name: checks
+        run: nix develop --command just check
+      - name: build
+        run: nix develop --command just build
+
