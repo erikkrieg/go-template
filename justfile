@@ -1,7 +1,9 @@
 # Module name (excluding domain)
 name := `basename "$(go list -m)"`
 
+# Default flags.
 build-flags := "-trimpath -ldflags='-w -s'"
+test-flags := "-v"
 
 # List available commands.
 list:
@@ -16,8 +18,8 @@ run:
   @go run ./main.go
 
 # Test runs all tests.
-test:
-  @go test ./... -v
+test *flags=test-flags:
+  go test ./... {{flags}}
 
 # Lint Go source code.
 lint *args:
