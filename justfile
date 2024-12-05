@@ -9,3 +9,7 @@ run:
 # Test runs all tests.
 test:
   @go test ./... -v
+
+# Lint Go source code.
+lint *args:
+  @golangci-lint run -v {{args}}

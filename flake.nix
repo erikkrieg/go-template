@@ -18,6 +18,7 @@
           buildInputs = [
             go
             gopls
+            golangci-lint
             just
           ];
           shellHook = ''
