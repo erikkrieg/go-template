@@ -20,6 +20,7 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@v8
         with:
           diagnostic-endpoint: ""
+          use-flakehub: false
       - uses: DeterminateSystems/flake-checker-action@v9
         with:
           send-statistics: false
