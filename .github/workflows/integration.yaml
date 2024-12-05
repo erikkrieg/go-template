@@ -13,18 +13,9 @@ jobs:
       contents: "read"
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: ./.github/actions/setup-nix
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          diagnostic-endpoint: ""
-      - uses: DeterminateSystems/magic-nix-cache-action@v8
-        with:
-          diagnostic-endpoint: ""
-          use-flakehub: false
-      - uses: DeterminateSystems/flake-checker-action@v9
-        with:
-          send-statistics: false
-          nixpkgs-keys: nixpkgs,unstable-nixpkgs
       - name: checks
         run: nix develop --command just check
       - name: build
