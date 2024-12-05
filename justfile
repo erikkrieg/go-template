@@ -3,8 +3,11 @@ name := `basename "$(go list -m)"`
 
 # Default flags.
 build-flags := "-trimpath -ldflags='-w -s'"
+run-flags := ""
 test-flags := "-v"
 lint-flags := "-v"
+tidy-flags := "-x"
+fmt-flags := "-x"
 
 # List available commands.
 list:
@@ -15,8 +18,8 @@ build *flags=build-flags:
   go build {{flags}} -o bin/{{name}}
 
 # Run compiles and runs the main Go package.
-run:
-  @go run ./main.go
+run *flags=run-flags:
+  @go run {{flags}} ./main.go
 
 # Test runs all tests.
 test *flags=test-flags:
@@ -25,3 +28,14 @@ test *flags=test-flags:
 # Lint Go source code.
 lint *flags=lint-flags:
   golangci-lint run {{flags}}
+
+# Update go.mod and go.sum.
+tidy *flags=tidy-flags:
+  go mod tidy {{flags}}
+
+# Format Go source code.
+fmt *flags=fmt-flags:
+  go fmt {{flags}} ./...
+
+# Run all checks. Note, this can modify files.
+check: tidy fmt lint test
