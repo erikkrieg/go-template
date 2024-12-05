@@ -4,6 +4,7 @@ name := `basename "$(go list -m)"`
 # Default flags.
 build-flags := "-trimpath -ldflags='-w -s'"
 test-flags := "-v"
+lint-flags := "-v"
 
 # List available commands.
 list:
@@ -22,5 +23,5 @@ test *flags=test-flags:
   go test ./... {{flags}}
 
 # Lint Go source code.
-lint *args:
-  @golangci-lint run -v {{args}}
+lint *flags=lint-flags:
+  golangci-lint run {{flags}}
