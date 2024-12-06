@@ -34,8 +34,7 @@ runs:
         send-statistics: false
         # Names of the flake inputs to check
         nixpkgs-keys: nixpkgs,unstable-nixpkgs
-    - name: Set /ni permissions to enable caching
+    - name: Set /nix permissions to enable caching
       if: always()
       shell: bash
       run: sudo chmod -R 777 /nix
-      post: true
