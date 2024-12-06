@@ -34,6 +34,9 @@ runs:
         send-statistics: false
         # Names of the flake inputs to check
         nixpkgs-keys: nixpkgs,unstable-nixpkgs
+    - name: Pre-build dev shell
+      shell: bash
+      run: nix build .#devShell.$(nix eval --impure --expr 'builtins.currentSystem') --no-link
     - name: Set /nix permissions to enable caching
       if: always()
       shell: bash
