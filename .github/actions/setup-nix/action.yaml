@@ -1,0 +1,30 @@
+name: "Setup Nix"
+description: "Install Nix package manager on runner"
+inputs:
+  github-token:
+    description: "GitHub token which is used to avoid rate limiting"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: DeterminateSystems/nix-installer-action@v16
+      with:
+        # Using a token is recommended to avoid rate limiting
+        github-token: ${{ inputs.github-token }}
+        # Disable collection of statistics
+        diagnostic-endpoint: ""
+    - uses: DeterminateSystems/magic-nix-cache-action@v8
+      with:
+        # Disable collection of statistics
+        diagnostic-endpoint: ""
+        # Disable FlakeHub because it is in private beta
+        use-flakehub: false
+    - uses: DeterminateSystems/flake-checker-action@v9
+      with:
+        # Disable collection of statistics
+        send-statistics: false
+        # Names of the flake inputs to check
+        nixpkgs-keys: nixpkgs,unstable-nixpkgs
+    - name: Pre-build dev shell
+      shell: bash
+      run: nix build .#devShell.$(nix eval --impure --expr 'builtins.currentSystem') --no-link

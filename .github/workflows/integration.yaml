@@ -1,0 +1,23 @@
+name: Integration
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+    permissions:
+      id-token: "write"
+      contents: "read"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-nix
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: checks
+        run: nix develop --command just check
+      - name: build
+        run: nix develop --command just build
+
