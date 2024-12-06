@@ -8,6 +8,7 @@ runs:
   using: "composite"
   steps:
     - name: Set /nix permissions to enable caching
+      shell: bash
       run: |
         sudo mkdir -p /nix
         sudo chmod -R 777 /nix
