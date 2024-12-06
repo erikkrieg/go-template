@@ -7,15 +7,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/cache@v4
-      name: Cache nix store
-      with:
-        path: |
-          /nix/store
-          /nix/var/nix/db
-        key: ${{ runner.os }}-nix-${{ hashFiles('flake.lock', 'flake.nix') }}
-        restore-keys: |
-          ${{ runner.os }}-nix-
     - uses: DeterminateSystems/nix-installer-action@v16
       with:
         # Using a token is recommended to avoid rate limiting
@@ -37,7 +28,3 @@ runs:
     - name: Pre-build dev shell
       shell: bash
       run: nix build .#devShell.$(nix eval --impure --expr 'builtins.currentSystem') --no-link
-    - name: Set /nix permissions to enable caching
-      if: always()
-      shell: bash
-      run: sudo chmod -R 777 /nix
