@@ -7,11 +7,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Set /nix permissions to enable caching
-      shell: bash
-      run: |
-        sudo mkdir -p /nix
-        sudo chmod -R 777 /nix
     - uses: actions/cache@v4
       name: Cache nix store
       with:
@@ -39,3 +34,8 @@ runs:
         send-statistics: false
         # Names of the flake inputs to check
         nixpkgs-keys: nixpkgs,unstable-nixpkgs
+    - name: Set /ni permissions to enable caching
+      if: always()
+      shell: bash
+      run: sudo chmod -R 777 /nix
+      post: true
