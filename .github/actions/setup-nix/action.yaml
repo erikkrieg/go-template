@@ -7,6 +7,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Set /nix permissions to enable caching
+      run: |
+        sudo mkdir -p /nix
+        sudo chmod -R 777 /nix
     - uses: actions/cache@v4
       name: Cache nix store
       with:
